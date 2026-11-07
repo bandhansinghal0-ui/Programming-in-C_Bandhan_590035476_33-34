@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Bandhan Singhal — B.Tech Computer Science Engineering student at UPES, building with C and exploring artificial intelligence and software engineering.">
+<meta name="theme-color" content="#07111f">
+<title>Bandhan Singhal | Computer Science & AI</title>
+<style>
+:root{
+  --bg:#07111f;--bg2:#0b1728;--panel:rgba(13,27,46,.72);--panel2:#0d1b2e;
+  --ink:#f4f8ff;--muted:#9fb0c7;--line:rgba(157,181,214,.16);
+  --accent:#60a5fa;--accent2:#8b5cf6;--good:#34d399;--shadow:0 24px 80px rgba(0,0,0,.28);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(37,99,235,.10),transparent 28rem),
+    radial-gradient(circle at 85% 20%,rgba(139,92,246,.08),transparent 25rem),
+    var(--bg);
+  color:var(--ink);line-height:1.65;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+  background-image:linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.018) 1px,transparent 1px);
+  background-size:42px 42px;
+  mask-image:linear-gradient(to bottom,black,transparent 82%);
+}
+a{color:inherit;text-decoration:none}
+button,input,textarea{font:inherit}
+.wrap{width:min(1160px,calc(100% - 42px));margin:auto}
+#fx{position:fixed;inset:0;z-index:-2;pointer-events:none}
+.cursor-glow{
+  position:fixed;width:340px;height:340px;border-radius:50%;pointer-events:none;z-index:-1;
+  background:radial-gradient(circle,rgba(96,165,250,.11),rgba(96,165,250,.035) 38%,transparent 70%);
+  transform:translate(-50%,-50%);opacity:0;transition:opacity .25s ease;
+}
+header{position:sticky;top:0;z-index:20;background:rgba(7,17,31,.76);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{font-weight:850;letter-spacing:-.045em;font-size:1.25rem}.brand span{color:var(--accent)}
+.links{display:flex;align-items:center;gap:20px;font-size:.84rem;color:#b8c6d9}
+.links a{transition:.2s ease}.links a:hover,.links a:focus-visible{color:white}
+.menu{display:none;background:none;border:1px solid var(--line);color:white;border-radius:10px;padding:9px 12px}
+.hero{min-height:calc(100vh - 73px);display:grid;grid-template-columns:1.25fr .75fr;gap:60px;align-items:center;padding:80px 0}
+.eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.18em;color:var(--accent);font-weight:800}
+.hero h1{font-size:clamp(3.5rem,7.5vw,6.8rem);letter-spacing:-.078em;line-height:.95;margin:17px 0 25px;max-width:900px}
+.hero h1 span{background:linear-gradient(100deg,#fff 15%,#8fc5ff 58%,#b9a3ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:clamp(1rem,2vw,1.18rem);color:#afbed1;max-width:720px}
+.typeline{margin-top:18px;color:#7dd3fc;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.92rem;min-height:1.5em}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.btn{
+  min-height:46px;display:inline-flex;align-items:center;justify-content:center;padding:11px 18px;border-radius:11px;
+  font-weight:750;font-size:.9rem;border:1px solid var(--line);background:rgba(255,255,255,.045);
+  color:white;transition:transform .18s ease,border-color .18s ease,background .18s ease;position:relative;overflow:hidden
+}
+.btn:hover{border-color:rgba(96,165,250,.55);background:rgba(96,165,250,.08)}
+.btn.primary{background:#eaf4ff;color:#07111f;border-color:#eaf4ff}
+.btn.primary:hover{background:white}
+.hero-orbit{position:relative;aspect-ratio:1;max-width:390px;width:100%;margin:auto;display:grid;place-items:center}
+.orbit{position:absolute;border:1px solid rgba(130,174,230,.18);border-radius:50%;inset:4%}
+.orbit.o2{inset:17%;border-style:dashed;animation:spin 22s linear infinite reverse}
+.orbit.o1{animation:spin 28s linear infinite}
+.dot{position:absolute;width:9px;height:9px;background:var(--accent);border-radius:50%;top:-5px;left:50%;box-shadow:0 0 24px rgba(96,165,250,.8)}
+.monogram{
+  width:58%;aspect-ratio:1;border-radius:32px;display:grid;place-items:center;font-size:clamp(4rem,10vw,7rem);font-weight:900;letter-spacing:-.09em;
+  background:linear-gradient(145deg,rgba(96,165,250,.15),rgba(139,92,246,.09));border:1px solid rgba(143,190,248,.23);
+  box-shadow:inset 0 1px rgba(255,255,255,.08),var(--shadow);backdrop-filter:blur(12px);
+  transform-style:preserve-3d;transition:transform .15s ease
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.scroll-note{position:absolute;bottom:30px;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#70829a}
+section{padding:90px 0;border-top:1px solid var(--line)}
+.section-head{display:grid;grid-template-columns:.5fr 1fr;gap:35px;margin-bottom:38px}
+.section-head h2{font-size:clamp(2rem,4vw,3.35rem);letter-spacing:-.055em;line-height:1.05;margin:0}
+.section-head p{margin:5px 0 0;color:var(--muted);max-width:660px}
+.about-copy{font-size:1.08rem;color:#c0ccdc;max-width:900px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.stat{border-top:1px solid var(--line);padding-top:16px}.stat strong{display:block;font-size:1.7rem;letter-spacing:-.04em}.stat span{color:var(--muted);font-size:.84rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{
+  position:relative;background:linear-gradient(145deg,rgba(15,31,52,.84),rgba(10,23,40,.7));border:1px solid var(--line);
+  padding:25px;border-radius:18px;box-shadow:0 12px 50px rgba(0,0,0,.12);overflow:hidden;
+  transform-style:preserve-3d;transition:transform .16s ease,border-color .2s ease
+}
+.card::after{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity .2s;
+  background:radial-gradient(350px circle at var(--mx,50%) var(--my,50%),rgba(96,165,250,.11),transparent 45%)
+}
+.card:hover{border-color:rgba(96,165,250,.35)}.card:hover::after,.card.touching::after{opacity:1}
+.card h3{margin:0 0 9px;font-size:1.13rem}.card p{margin:0;color:var(--muted)}
+.tag{display:inline-block;padding:5px 10px;border-radius:30px;background:rgba(96,165,250,.10);color:#9ac9ff;font-size:.72rem;font-weight:800;margin-bottom:15px;border:1px solid rgba(96,165,250,.12)}
+.edu{display:flex;justify-content:space-between;gap:24px;align-items:start}.edu strong{font-size:1.25rem}
+.skill-groups{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.skill-panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:25px}
+.skill-panel h3{margin-top:0}.pillbox{display:flex;flex-wrap:wrap;gap:9px}
+.pill{border:1px solid var(--line);border-radius:9px;background:rgba(255,255,255,.025);padding:9px 13px;font-weight:650;font-size:.87rem;transition:.18s}
+.pill:hover{border-color:rgba(96,165,250,.45);transform:translateY(-2px);background:rgba(96,165,250,.06)}
+.featured{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:stretch;
+  background:linear-gradient(135deg,rgba(37,99,235,.10),rgba(139,92,246,.07) 55%,rgba(255,255,255,.02));
+  border:1px solid rgba(96,165,250,.2);border-radius:24px;padding:clamp(25px,5vw,46px);overflow:hidden;position:relative
+}
+.featured h3{font-size:clamp(2.4rem,5vw,4.6rem);line-height:.95;letter-spacing:-.065em;margin:13px 0 20px}
+.featured p{color:#b5c3d5;max-width:650px}
+.project-visual{min-height:300px;display:grid;place-items:center;position:relative}
+.guard-ui{width:min(100%,340px);border:1px solid rgba(125,181,248,.24);border-radius:20px;padding:22px;background:rgba(4,13,26,.68);box-shadow:var(--shadow);transform-style:preserve-3d}
+.guard-top{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:16px}
+.status{font-size:.72rem;color:#7ee7bd}.guard-item{padding:13px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;color:#b7c7da;font-size:.86rem}
+.guard-item:last-child{border:0}.pulse{width:8px;height:8px;border-radius:50%;background:var(--good);display:inline-block;box-shadow:0 0 0 0 rgba(52,211,153,.4);animation:pulse 2s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px rgba(52,211,153,0)}100%{box-shadow:0 0 0 0 rgba(52,211,153,0)}}
+.programs{grid-template-columns:repeat(3,1fr)}
+.program .num{font-family:ui-monospace,monospace;color:#5f7898;font-size:.75rem;margin-bottom:28px}.program a{display:inline-block;margin-top:17px;color:#a8d1ff;font-size:.84rem;font-weight:700}
+.cert-link{display:inline-block;margin-top:17px;color:#a8d1ff;font-weight:750;font-size:.86rem}
+.contact-box{display:grid;grid-template-columns:.9fr 1.1fr;gap:32px;background:linear-gradient(135deg,rgba(37,99,235,.09),rgba(15,31,52,.75));border:1px solid var(--line);border-radius:24px;padding:clamp(25px,5vw,45px)}
+.contact-list{display:grid;gap:12px;margin-top:25px}.contact-item{border-top:1px solid var(--line);padding-top:13px}.contact-item small{display:block;color:#71849d;text-transform:uppercase;letter-spacing:.12em;font-size:.65rem}.contact-item a,.contact-item span{color:#dce8f7;word-break:break-word}
+form{display:grid;gap:13px}.field{display:grid;gap:6px}.field label{font-size:.76rem;color:#9fb0c7}.field input,.field textarea{width:100%;border:1px solid var(--line);background:rgba(3,12,24,.55);color:white;border-radius:10px;padding:12px 13px;outline:none}.field textarea{min-height:125px;resize:vertical}.field input:focus,.field textarea:focus{border-color:rgba(96,165,250,.65);box-shadow:0 0 0 3px rgba(96,165,250,.08)}
+.footer{padding:30px 0 42px;color:#74869e;font-size:.82rem;display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}
+.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.18);transform:scale(0);animation:ripple .55s ease-out;pointer-events:none}
+@keyframes ripple{to{transform:scale(5);opacity:0}}
+@media(max-width:850px){
+  .hero{grid-template-columns:1fr;min-height:auto;padding:75px 0 95px}.hero-orbit{max-width:280px;grid-row:1}.scroll-note{display:none}
+  .section-head{grid-template-columns:1fr;gap:8px}.featured,.contact-box{grid-template-columns:1fr}.programs,.grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  .wrap{width:min(100% - 30px,1160px)}nav{min-height:64px}.menu{display:block}.links{display:none;position:absolute;left:15px;right:15px;top:64px;background:#0a1728;border:1px solid var(--line);border-radius:14px;padding:14px;flex-direction:column;align-items:stretch}.links.open{display:flex}
+  .hero{padding-top:58px}.hero h1{font-size:clamp(3rem,16vw,4.5rem)}section{padding:70px 0}.grid,.programs,.skill-groups,.stats{grid-template-columns:1fr}.edu{display:block}.edu .tag{margin-top:15px}
+  .project-visual{min-height:250px}.contact-box{padding:24px}
+}
+
+.demo-shell{margin-top:28px;border:1px solid rgba(96,165,250,.22);border-radius:22px;background:rgba(3,12,24,.62);overflow:hidden}
+.demo-bar{display:flex;justify-content:space-between;gap:15px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.025)}
+.demo-bar strong{font-size:.9rem}.demo-live{font-size:.7rem;color:#7ee7bd;letter-spacing:.1em}.demo-grid{display:grid;grid-template-columns:.8fr 1.2fr}
+.demo-controls{padding:20px;border-right:1px solid var(--line);display:grid;gap:13px;align-content:start}
+.demo-controls label{font-size:.72rem;color:#8fa2ba;text-transform:uppercase;letter-spacing:.08em}
+.demo-controls select{width:100%;margin-top:5px;background:#09182a;color:white;border:1px solid var(--line);border-radius:10px;padding:11px}
+.demo-check{display:flex;align-items:center;gap:9px;color:#b9c8da;font-size:.85rem}.demo-check input{width:18px;height:18px}
+.demo-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}.demo-actions button{cursor:pointer}
+.demo-screen{padding:20px;min-width:0}.demo-screen-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}
+.demo-screen h4{margin:0;font-size:1.05rem}.demo-status{font-size:.7rem;color:#7ee7bd}
+.route-output{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#06101d;border:1px solid var(--line);border-radius:14px;padding:16px;min-height:250px;color:#bcd0e7;white-space:pre-wrap;overflow:auto;font-size:.79rem;line-height:1.7}
+.demo-note{margin:12px 0 0;color:#6f849e;font-size:.72rem}
+.feature-list{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.feature-chip{border:1px solid var(--line);border-radius:12px;padding:12px;background:rgba(255,255,255,.025)}
+.feature-chip strong{display:block;font-size:.83rem;margin-bottom:3px}.feature-chip span{color:#8498b1;font-size:.73rem}
+@media(max-width:750px){.demo-grid{grid-template-columns:1fr}.demo-controls{border-right:0;border-bottom:1px solid var(--line)}.feature-list{grid-template-columns:1fr 1fr}}
+@media(max-width:450px){.feature-list{grid-template-columns:1fr}.demo-screen,.demo-controls{padding:15px}}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}.orbit,.pulse{animation:none}.reveal{opacity:1;transform:none;transition:none}*{transition-duration:.001ms!important}
+}
+</style>
+</head>
+<body>
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+<header>
+  <nav class="wrap" aria-label="Main navigation">
+    <a href="#home" class="brand">Bandhan<span>.</span></a>
+    <button class="menu" id="menuBtn" type="button" aria-expanded="false" aria-controls="navLinks">Menu</button>
+    <div class="links" id="navLinks">
+      <a href="#about">About</a><a href="#education">Education</a><a href="#skills">Skills</a>
+      <a href="#projects">Projects</a><a href="#certifications">Certifications</a><a href="#contact">Contact</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="hero" id="home">
+      <div class="reveal">
+        <div class="eyebrow">Computer Science · C Programming · AI</div>
+        <h1>Hi, I'm <span>Bandhan Singhal.</span></h1>
+        <p class="lead">B.Tech Computer Science Engineering student at UPES, building a strong foundation in programming and problem solving while exploring artificial intelligence and software development.</p>
+        <div class="typeline" id="typeLine" aria-live="polite">&gt; currently_learning: C Programming</div>
+        <div class="actions">
+          <a class="btn primary magnetic" href="#projects">Explore my work ↗</a>
+          <a class="btn magnetic" href="https://github.com/bandhansinghal0-ui/Programming-in-C_Bandhan_590035476_33-34" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          <a class="btn magnetic" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="hero-orbit reveal tilt-zone" aria-label="Interactive BS monogram">
+        <div class="orbit o1"><span class="dot"></span></div><div class="orbit o2"><span class="dot"></span></div>
+        <div class="monogram">BS</div>
+      </div>
+      <div class="scroll-note">Scroll to explore ↓</div>
+    </div>
+  </div>
+
+  <section id="about">
+    <div class="wrap reveal">
+      <div class="section-head"><div class="eyebrow">01 / Introduction</div><div><h2>Learning with purpose.<br>Building with curiosity.</h2><p>A student developer focused on strengthening fundamentals and turning classroom learning into practical work.</p></div></div>
+      <div class="about-copy"><p>I'm Bandhan, a Computer Science Engineering student pursuing my B.Tech at UPES in Dehradun. My current focus is C programming, problem solving and core engineering concepts, alongside an expanding interest in artificial intelligence and software engineering.</p><p>Outside academics, I enjoy photography, nature, travel and creative college activities — interests that also influence how I think about design, communication and technology.</p></div>
+      <div class="stats"><div class="stat"><strong>C</strong><span>Core programming focus</span></div><div class="stat"><strong>AI</strong><span>Active learning interest</span></div><div class="stat"><strong>2030</strong><span>B.Tech expected completion</span></div></div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap reveal">
+      <div class="section-head"><div class="eyebrow">02 / Academic journey</div><div><h2>Education</h2><p>Building the academic and technical foundation for a career in computer science.</p></div></div>
+      <div class="card edu tilt-card"><div><strong>B.Tech — Computer Science Engineering</strong><p>University of Petroleum and Energy Studies (UPES), Dehradun, India</p><p>Current areas include programming fundamentals, engineering mathematics, problem solving and emerging technologies.</p></div><span class="tag">2026–2030 · In progress</span></div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="wrap reveal">
+      <div class="section-head"><div class="eyebrow">03 / Technical foundation</div><div><h2>Skills & interests</h2><p>Technologies and concepts I am actively learning, practicing and applying through coursework and projects.</p></div></div>
+      <div class="skill-groups">
+        <div class="skill-panel"><h3>Core</h3><div class="pillbox"><span class="pill">C Programming</span><span class="pill">Problem Solving</span><span class="pill">Arrays & Matrices</span><span class="pill">Functions</span><span class="pill">Pointers</span><span class="pill">Recursion</span><span class="pill">Structures</span></div></div>
+        <div class="skill-panel"><h3>Exploring</h3><div class="pillbox"><span class="pill">Artificial Intelligence</span><span class="pill">Software Development</span><span class="pill">Data Structures & Algorithms</span><span class="pill">Creative Storytelling</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="wrap">
+      <div class="section-head reveal"><div class="eyebrow">04 / Projects</div><div><h2>From concepts to working ideas.</h2><p>Academic and programming work that reflects my progress in C, problem solving and software thinking.</p></div></div>
+
+      <article class="featured reveal tilt-card">
+        <div>
+          <span class="tag">Featured C Mini Project · UPES Bidholi</span>
+          <h3>CampusGuard</h3>
+          <p><strong>Smart Emergency Navigation & Response System.</strong> CampusGuard is a student-built C prototype for emergency navigation, response and preparedness at the UPES Bidholi campus. It models a campus road network and dynamically compares available exits to recommend a route while accounting for reported hazards, road problems, exit availability and accessibility requirements.</p>
+          <div class="feature-list">
+            <div class="feature-chip"><strong>29 Locations</strong><span>Campus nodes with short location codes</span></div>
+            <div class="feature-chip"><strong>3 Emergency Exits</strong><span>Compared dynamically for routing</span></div>
+            <div class="feature-chip"><strong>Dynamic Routing</strong><span>Shortest currently available route</span></div>
+            <div class="feature-chip"><strong>Accessibility</strong><span>Avoids routes marked inaccessible</span></div>
+            <div class="feature-chip"><strong>User + Admin Model</strong><span>Reports followed by verification</span></div>
+            <div class="feature-chip"><strong>Incident Records</strong><span>History, search and statistics</span></div>
+          </div>
+          <div class="pillbox" style="margin-top:22px"><span class="pill">C</span><span class="pill">2D Arrays</span><span class="pill">Strings</span><span class="pill">Functions</span><span class="pill">File Handling</span><span class="pill">Graph Routing</span></div>
+          <div class="actions"><a class="btn primary magnetic" href="#campusguard-demo">Try interactive demo ↓</a><a class="btn magnetic" href="https://github.com/bandhansinghal0-ui/Programming-in-C_Bandhan_590035476_33-34" target="_blank" rel="noopener noreferrer">View repository ↗</a></div>
+        </div>
+        <div class="project-visual">
+          <div class="guard-ui">
+            <div class="guard-top"><strong>CAMPUSGUARD</strong><span class="status"><span class="pulse"></span> READY</span></div>
+            <div class="guard-item"><span>System</span><strong>Emergency Navigation</strong></div>
+            <div class="guard-item"><span>Network</span><strong>29 Locations</strong></div>
+            <div class="guard-item"><span>Exits</span><strong>3 Dynamic</strong></div>
+            <div class="guard-item"><span>Modes</span><strong>User + Admin</strong></div>
+            <div class="guard-item"><span>Storage</span><strong>Incident History</strong></div>
+          </div>
+        </div>
+      </article>
+
+      <div class="demo-shell reveal" id="campusguard-demo">
+        <div class="demo-bar"><strong>CampusGuard · Interactive Web Simulation</strong><span class="demo-live"><span class="pulse"></span> SIMULATION READY</span></div>
+        <div class="demo-grid">
+          <div class="demo-controls">
+            <div><label for="cgStart">Your campus location</label><select id="cgStart"></select></div>
+            <div><label for="cgEmergency">Emergency type</label><select id="cgEmergency"><option>Fire</option><option>Gas Leak</option><option>Electrical Hazard</option><option>Earthquake</option><option>Medical Emergency</option><option>Security Emergency</option><option>General Evacuation</option></select></div>
+            <div><label for="cgHazard">Reported hazard to avoid</label><select id="cgHazard"><option value="">None</option></select></div>
+            <label class="demo-check"><input type="checkbox" id="cgAccessible"> Accessibility-aware route required</label>
+            <div class="demo-actions">
+              <button class="btn primary" id="cgRoute" type="button">Find safest exit</button>
+              <button class="btn" id="cgSOS" type="button">Quick SOS</button>
+              <button class="btn" id="cgReset" type="button">Reset</button>
+            </div>
+          </div>
+          <div class="demo-screen">
+            <div class="demo-screen-top"><div><div class="eyebrow">Live prototype</div><h4>Emergency Navigation Console</h4></div><span class="demo-status" id="cgStatus">SYSTEM READY</span></div>
+            <div class="route-output" id="cgOutput">CAMPUS GUARD — WEB DEMO
+
+Select your location and emergency type, then choose “Find safest exit”.
+
+This demo compares all three exits and calculates the shortest available route through the CampusGuard campus network.</div>
+            <p class="demo-note">Portfolio simulation only — this browser demo does not contact UPES, security, medical services, or any real emergency service. The original project is a student-project simulation, not an official UPES emergency system.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:38px"></div>
+      <div class="eyebrow reveal" style="margin-bottom:16px">C Programming Practice</div>
+      <div class="grid programs">
+        <article class="card program tilt-card reveal"><div class="num">01 / RECURSION</div><span class="tag">C</span><h3>Tower of Hanoi</h3><p>Recursive problem solving using source, auxiliary and destination rods.</p></article>
+        <article class="card program tilt-card reveal"><div class="num">02 / RECURSION</div><span class="tag">C</span><h3>Factorial & Fibonacci</h3><p>Practice with base cases, recursive calls and sequence generation.</p></article>
+        <article class="card program tilt-card reveal"><div class="num">03 / ARRAYS</div><span class="tag">C</span><h3>Sliding Window Problems</h3><p>Finding maximum sums and window-based values efficiently across arrays.</p></article>
+        <article class="card program tilt-card reveal"><div class="num">04 / MATRICES</div><span class="tag">C</span><h3>Matrix Operations</h3><p>Working with two-dimensional arrays, transpose operations and comparisons.</p></article>
+        <article class="card program tilt-card reveal"><div class="num">05 / ARRAYS</div><span class="tag">C</span><h3>Product Except Self</h3><p>Array transformation practice using prefix and suffix product concepts.</p></article>
+        <article class="card program tilt-card reveal"><div class="num">06 / STRUCTURES</div><span class="tag">C</span><h3>Structures & Bit Fields</h3><p>Representing compact status and student information using structured data.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="certifications">
+    <div class="wrap reveal">
+      <div class="section-head"><div class="eyebrow">05 / Continuous learning</div><div><h2>Certifications</h2><p>Completed learning milestones supporting my interest in computing and artificial intelligence.</p></div></div>
+      <div class="grid">
+        <article class="card tilt-card"><span class="tag">FutureLearn · Universiti Malaya</span><h3>Artificial Intelligence for Everyone</h3><p>Issued September 25, 2026. Introduction to AI concepts, applications and techniques.</p><a class="cert-link" href="certificates/artificial-intelligence-for-everyone.pdf" target="_blank" rel="noopener noreferrer">View certificate ↗</a></article>
+        <article class="card tilt-card"><span class="tag">FutureLearn · University of Bristol</span><h3>AI Fundamentals: Unleash Your Potential</h3><p>Issued September 19, 2026. AI foundations, applications and societal impact.</p><a class="cert-link" href="certificates/ai-fundamentals-unleash-your-potential.pdf" target="_blank" rel="noopener noreferrer">View certificate ↗</a></article>
+        <article class="card tilt-card"><span class="tag">Code.org</span><h3>The Hour of Code</h3><p>Certificate of completion covering introductory computer science concepts.</p><a class="cert-link" href="certificates/hour-of-code.png" target="_blank" rel="noopener noreferrer">View certificate ↗</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap reveal">
+      <div class="contact-box">
+        <div>
+          <div class="eyebrow">06 / Connect</div><h2 style="font-size:clamp(2.2rem,5vw,4rem);letter-spacing:-.06em;line-height:1;margin:14px 0 18px">Let's connect.</h2>
+          <p style="color:#afbed1">Open to internships, collaborations, beginner-friendly projects and opportunities to learn and build.</p>
+          <div class="contact-list">
+            <div class="contact-item"><small>Personal email</small><a href="mailto:Bandhansinghal0@gmail.com">Bandhansinghal0@gmail.com</a></div>
+            <div class="contact-item"><small>University email</small><a href="mailto:Bandhan.35476@stu.upes.ac.in">Bandhan.35476@stu.upes.ac.in</a></div>
+            <div class="contact-item"><small>Location</small><span>Dehradun, Uttarakhand, India</span></div>
+          </div>
+          <div class="actions">
+            <a class="btn magnetic" href="https://www.linkedin.com/in/bandhan-singhal-9960ab404/" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a>
+            <a class="btn magnetic" href="https://github.com/bandhansinghal0-ui/Programming-in-C_Bandhan_590035476_33-34" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+          </div>
+        </div>
+        <form id="contactForm">
+          <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required placeholder="Your name"></div>
+          <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+          <div class="field"><label for="subject">Subject</label><input id="subject" name="subject" required placeholder="Internship / Collaboration / Hello"></div>
+          <div class="field"><label for="message">Message</label><textarea id="message" name="message" required placeholder="Write your message..."></textarea></div>
+          <button class="btn primary magnetic" type="submit">Send via email →</button>
+          <small style="color:#71849d">This opens your email app with the message prepared. No data is stored by this website.</small>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap footer"><span>© <span id="year">2026</span> Bandhan Singhal</span><span>Learning today. Building tomorrow.</span></footer>
+
+<script>
+(() => {
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const menuBtn=document.getElementById('menuBtn'), navLinks=document.getElementById('navLinks');
+  menuBtn.addEventListener('click',()=>{const open=navLinks.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(open))});
+  navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{navLinks.classList.remove('open');menuBtn.setAttribute('aria-expanded','false')}));
+
+  const reveals=[...document.querySelectorAll('.reveal')];
+  if(reduce){reveals.forEach(x=>x.classList.add('visible'))}
+  else{
+    const io=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.12});
+    reveals.forEach(x=>io.observe(x));
+  }
+
+  const glow=document.getElementById('cursorGlow');
+  if(matchMedia('(pointer:fine)').matches && !reduce){
+    window.addEventListener('pointermove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px';glow.style.opacity='1'});
+    document.documentElement.addEventListener('mouseleave',()=>glow.style.opacity='0');
+  }
+
+  function tilt(el,e,intensity=7){
+    const r=el.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    el.style.setProperty('--mx',(x*100)+'%');el.style.setProperty('--my',(y*100)+'%');
+    if(!reduce && matchMedia('(pointer:fine)').matches) el.style.transform=`perspective(900px) rotateX(${(0.5-y)*intensity}deg) rotateY(${(x-0.5)*intensity}deg) translateY(-2px)`;
+  }
+  document.querySelectorAll('.tilt-card').forEach(el=>{
+    el.addEventListener('pointermove',e=>tilt(el,e));
+    el.addEventListener('pointerleave',()=>el.style.transform='');
+    el.addEventListener('pointerdown',e=>{el.classList.add('touching');ripple(el,e)});
+    el.addEventListener('pointerup',()=>el.classList.remove('touching'));
+    el.addEventListener('pointercancel',()=>el.classList.remove('touching'));
+  });
+  const heroTilt=document.querySelector('.tilt-zone'), mono=document.querySelector('.monogram');
+  if(heroTilt && mono && !reduce){
+    heroTilt.addEventListener('pointermove',e=>{const r=heroTilt.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;mono.style.transform=`perspective(800px) rotateX(${(0.5-y)*12}deg) rotateY(${(x-0.5)*12}deg)`});
+    heroTilt.addEventListener('pointerleave',()=>mono.style.transform='');
+  }
+  function ripple(el,e){
+    const r=el.getBoundingClientRect(),s=document.createElement('span');s.className='ripple';
+    const size=Math.max(r.width,r.height)*.22;s.style.width=s.style.height=size+'px';s.style.left=(e.clientX-r.left-size/2)+'px';s.style.top=(e.clientY-r.top-size/2)+'px';
+    el.appendChild(s);setTimeout(()=>s.remove(),600);
+  }
+
+  if(matchMedia('(pointer:fine)').matches && !reduce){
+    document.querySelectorAll('.magnetic').forEach(el=>{
+      el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect(),x=e.clientX-(r.left+r.width/2),y=e.clientY-(r.top+r.height/2);el.style.transform=`translate(${x*.08}px,${y*.12}px)`});
+      el.addEventListener('pointerleave',()=>el.style.transform='');
+    });
+  }
+
+  const phrases=['C Programming','Problem Solving','Artificial Intelligence','Software Development'];
+  const typeLine=document.getElementById('typeLine');let pi=0;
+  if(!reduce)setInterval(()=>{pi=(pi+1)%phrases.length;typeLine.textContent='> currently_learning: '+phrases[pi]},2100);
+
+  const canvas=document.getElementById('fx'),ctx=canvas.getContext('2d');
+  let w=0,h=0,dpr=1,particles=[],pointer={x:-9999,y:-9999,active:false};
+  function resize(){
+    dpr=Math.min(devicePixelRatio||1,2);w=innerWidth;h=innerHeight;canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);
+    const count=Math.min(70,Math.max(28,Math.floor(w/22)));particles=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,vx:(Math.random()-.5)*.18,vy:(Math.random()-.5)*.18,r:Math.random()*1.4+.5}));
+  }
+  function movePointer(e){pointer.x=e.clientX;pointer.y=e.clientY;pointer.active=true}
+  window.addEventListener('pointermove',movePointer,{passive:true});window.addEventListener('pointerdown',movePointer,{passive:true});window.addEventListener('pointerup',()=>pointer.active=false,{passive:true});
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(const p of particles){
+      p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>w)p.vx*=-1;if(p.y<0||p.y>h)p.vy*=-1;
+      const dx=p.x-pointer.x,dy=p.y-pointer.y,dist=Math.hypot(dx,dy);
+      if(dist<130 && dist>1){const force=(130-dist)/130*(pointer.active?.7:.22);p.x+=dx/dist*force;p.y+=dy/dist*force}
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle='rgba(150,190,235,.28)';ctx.fill();
+    }
+    for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<92){ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle=`rgba(105,150,205,${.06*(1-d/92)})`;ctx.stroke()}}
+    requestAnimationFrame(draw);
+  }
+  resize();addEventListener('resize',resize);if(!reduce)draw();else{ctx.clearRect(0,0,w,h)}
+
+
+  // CampusGuard browser simulation: mirrors the routing network in the C project.
+  const cgLocations=[
+    ["MG1","Main Gate / Exit 1"],["AB1","Main Block / AB-1"],["AB2","AB-2"],["AB3","AB-3"],["B03","3rd Block"],["B04","4th Block"],["B05","5th Block"],["B06","6th Block"],["HUB","The Hubble"],["ECL","E-Cell UPES"],["LIB","UPES Library"],["ADT","Aditya Block"],["BHK","Bhaskar Block"],["ITB","IT Block"],["SOD","SODS / School of Design"],["MAC","MAC"],["ENG","Energy Block"],["CR1","Central Roundabout"],["B08","8th Block"],["NP2","New Porta"],["B10","10th Block"],["C11","Chitrakoot / 11th Block"],["PRT","Porta"],["RD3","R&D Block / Exit 3"],["BHS","Boys Hostel"],["MDC","MDC Guest House"],["SPT","Cricket Ground / Sports"],["UPR","Upper Road"],["GH2","Girls Hostel Exit / Exit 2"]
+  ];
+  const cgEdges=[
+    [0,8,55,1],[0,1,75,1],[8,1,25,1],[8,9,30,1],[9,1,20,1],[1,2,20,1],[2,3,20,1],[3,4,20,0],[2,5,20,1],[5,7,15,1],[4,6,15,0],[6,7,15,1],[3,17,45,1],[1,10,45,1],[10,11,25,1],[10,13,25,1],[13,14,20,1],[11,12,20,1],[12,14,20,1],[12,17,35,1],[14,17,35,1],[10,15,45,1],[15,16,25,1],[16,26,45,1],[10,26,55,1],[13,26,50,1],[17,18,40,1],[18,19,35,1],[18,20,30,1],[20,21,30,1],[21,19,50,1],[17,22,20,1],[22,23,35,1],[22,24,35,1],[24,23,30,1],[24,25,45,1],[23,25,40,1],[25,26,55,1],[25,27,45,1],[23,27,55,1],[24,28,50,1],[25,28,55,1]
+  ];
+  const cgExits=[0,28,23], cgStart=document.getElementById('cgStart'), cgHazard=document.getElementById('cgHazard'), cgOutput=document.getElementById('cgOutput'), cgStatus=document.getElementById('cgStatus');
+  cgLocations.forEach((x,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${x[0]} — ${x[1]}`;cgStart.appendChild(o);const h=o.cloneNode(true);cgHazard.appendChild(h)});
+  cgStart.value="10";
+  function cgRoute(start,end,blocked,accessibleOnly){
+    const n=cgLocations.length,dist=Array(n).fill(Infinity),prev=Array(n).fill(-1),used=Array(n).fill(false);dist[start]=0;
+    if(blocked.has(start)||blocked.has(end))return null;
+    for(let k=0;k<n;k++){let u=-1,best=Infinity;for(let i=0;i<n;i++)if(!used[i]&&!blocked.has(i)&&dist[i]<best){best=dist[i];u=i}if(u<0||u===end)break;used[u]=true;
+      for(const [a,b,w,acc] of cgEdges){let v=-1;if(a===u)v=b;else if(b===u)v=a;else continue;if(accessibleOnly&&!acc)continue;if(blocked.has(v)||used[v])continue;if(dist[u]+w<dist[v]){dist[v]=dist[u]+w;prev[v]=u}}
+    }
+    if(!isFinite(dist[end]))return null;const path=[];for(let x=end;x!==-1;x=prev[x]){path.push(x);if(x===start)break}if(path[path.length-1]!==start)return null;path.reverse();return{distance:dist[end],path};
+  }
+  function cgRun(){
+    const start=Number(cgStart.value),haz=cgHazard.value===""?null:Number(cgHazard.value),access=document.getElementById('cgAccessible').checked,blocked=new Set(haz===null?[]:[haz]);
+    const emergency=document.getElementById('cgEmergency').value, results=cgExits.map(e=>({exit:e,result:cgRoute(start,e,blocked,access)}));
+    const available=results.filter(x=>x.result).sort((a,b)=>a.result.distance-b.result.distance);
+    let out=`CAMPUS GUARD — ACTIVE SIMULATION\n\nEmergency : ${emergency}\nLocation  : ${cgLocations[start][1]} [${cgLocations[start][0]}]\nAccessibility route: ${access?"YES":"NO"}\n`;
+    if(haz!==null)out+=`Avoiding reported hazard: ${cgLocations[haz][1]} [${cgLocations[haz][0]}]\n`;
+    out+="\nEXIT COMPARISON\n------------------------------\n";
+    for(const x of results)out+=`${cgLocations[x.exit][0]}  ${x.result?String(x.result.distance).padStart(4)+" m  AVAILABLE":"   ---  NO ROUTE"}\n`;
+    if(!available.length){out+="\nNO AVAILABLE EXIT ROUTE.\nFollow official campus emergency instructions.";cgStatus.textContent="NO ROUTE";cgStatus.style.color="#fca5a5"}
+    else{const best=available[0];out+=`\nRECOMMENDED EXIT\n${cgLocations[best.exit][1]} [${cgLocations[best.exit][0]}]\nDistance: ${best.result.distance} m\n\nROUTE\n`+best.result.path.map((i,n)=>`${n?"   ↓\n":""}[${cgLocations[i][0]}] ${cgLocations[i][1]}`).join("\n");out+=`\n\nReason: shortest currently available ${access?"accessible ":""}route in this simulation.`;cgStatus.textContent="ROUTE FOUND";cgStatus.style.color="#7ee7bd"}
+    cgOutput.textContent=out;
+  }
+  document.getElementById('cgRoute').addEventListener('click',cgRun);
+  document.getElementById('cgSOS').addEventListener('click',()=>{const i=Number(cgStart.value);cgStatus.textContent="SOS SIMULATED";cgStatus.style.color="#fbbf24";cgOutput.textContent=`QUICK SOS — PROJECT SIMULATION\n\nAssistance request registered in the browser demo.\nLocation: ${cgLocations[i][1]} [${cgLocations[i][0]}]\nPriority: HIGH\n\nNo real emergency service has been contacted.`});
+  document.getElementById('cgReset').addEventListener('click',()=>{cgStart.value="10";cgHazard.value="";document.getElementById('cgAccessible').checked=false;document.getElementById('cgEmergency').selectedIndex=0;cgStatus.textContent="SYSTEM READY";cgStatus.style.color="#7ee7bd";cgOutput.textContent="CAMPUS GUARD — WEB DEMO\n\nSelect your location and emergency type, then choose “Find safest exit”.\n\nThis demo compares all three exits and calculates the shortest available route through the CampusGuard campus network."});
+
+
+  document.getElementById('contactForm').addEventListener('submit',e=>{
+    e.preventDefault();
+    const fd=new FormData(e.currentTarget),name=String(fd.get('name')||'').trim(),email=String(fd.get('email')||'').trim(),subject=String(fd.get('subject')||'').trim(),message=String(fd.get('message')||'').trim();
+    if(!name||!email||!subject||!message)return;
+    const body=`Hello Bandhan,%0D%0A%0D%0A${encodeURIComponent(message)}%0D%0A%0D%0AFrom: ${encodeURIComponent(name)} (${encodeURIComponent(email)})`;
+    location.href=`mailto:Bandhansinghal0@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+  });
+})();
+</script>
+</body>
+</html>
